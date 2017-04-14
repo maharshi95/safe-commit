@@ -90,3 +90,4 @@ ENV/
 
 
 .idea/
+/safe_commit/configurations/settings.ini

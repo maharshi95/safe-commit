@@ -4,7 +4,7 @@ import os
 import os.path
 
 
-class ConfigReader(object):
+class ConfigReader:
     def __init__(self):
         super(ConfigReader, self).__init__()
         base_dir = os.path.dirname(os.path.abspath(__file__))
