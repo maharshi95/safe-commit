@@ -1,6 +1,6 @@
 # safe-commit
-Find co-relation among project source files looking at the commit history of the project repo
 
+Find co-relation among project source files looking at the commit history of the project repository
 
 ### Instructions on how to setup project
 Create a `settings.ini` file in configurations dir following the same convention as `settings.ini.template`
