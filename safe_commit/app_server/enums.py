@@ -12,4 +12,18 @@ class JobStatus:
 
     @classmethod
     def choices(cls):
-        return tuple([(v,v) for v in cls.values()])
+        return [(v, v) for v in cls.values()]
+
+
+class FileType:
+    SRC = 'Source'
+    CONFIG = 'Config'
+    OTHER = 'Other'
+
+    @classmethod
+    def values(cls):
+        return (cls.SRC, cls.CONFIG, cls.OTHER)
+
+    @classmethod
+    def choices(cls):
+        return [(v, v) for v in cls.values()]

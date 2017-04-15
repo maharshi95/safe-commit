@@ -85,7 +85,7 @@ DATABASES = {
         'USER': configs.db_config('USERNAME'),
         'PASSWORD': configs.db_config('PASSWORD'),
         'HOST': configs.db_config('HOST'),
-        'PORT': '3306',
+        'PORT': configs.db_config('PORT'),
 
         # emoji compatibility in strings for mysql
         'OPTIONS': {

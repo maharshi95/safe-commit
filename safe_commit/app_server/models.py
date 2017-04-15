@@ -1,6 +1,6 @@
 from django.db import models
 
-from app_server.enums import JobStatus
+from app_server.enums import JobStatus, FileType
 
 
 class BaseModel(models.Model):
@@ -46,8 +46,12 @@ class File(BaseModel):
     project = models.ForeignKey(Project, related_name='files')
     name = models.CharField(max_length=100)
     ext = models.CharField(max_length=10)
-    type = models.CharField(max_length=50)
+    type = models.CharField(max_length=50, choices=FileType.choices())
     path = models.CharField(max_length=255)
+
+    @property
+    def full_name(self):
+        return '{}.{}'.format(self.name, self.ext)
 
     class Meta:
         unique_together = ('project', 'path')
