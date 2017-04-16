@@ -1,3 +1,7 @@
+import os.path as osp
+
+from app_worker import constants
+
 from django.db import models
 
 from app_server.enums import JobStatus, FileType
@@ -33,6 +37,28 @@ class ProjectJob(BaseModel):
     total_commits = models.IntegerField(default=0)
     processed_commits = models.IntegerField(default=0)
     error_log = models.TextField(blank=True, default='')
+
+    @property
+    def space_ecs_name(self):
+        return self.name.replace(' ', '_')
+
+    @property
+    def repo_name(self):
+        git_url = self.project.git_url
+        return git_url.split('/')[-1][:-4]
+
+    @property
+    def local_dir_name(self):
+        return 'job-{}_project-{}_{}'.format(self.id, self.project_id, self.space_ecs_name)
+
+    @property
+    def local_dir_path(self):
+        return osp.join(constants.DATA_PATH, self.local_dir_name)
+
+    @property
+    def repo_path(self):
+        return osp.join(self.local_dir_path, constants.JOB_REPO_DIR_NAME)
+
 
 
 class CommitJob(BaseModel):

@@ -1,6 +1,5 @@
 # Author: Maharshi Gor
 import django_filters
-from django_filters.filters import LOOKUP_TYPES
 from django_filters.rest_framework import FilterSet
 
 from app_server.enums import JobStatus

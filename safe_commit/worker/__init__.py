@@ -1,1 +1,0 @@
-# Author: Maharshi Gor

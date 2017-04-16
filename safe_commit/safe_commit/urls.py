@@ -35,4 +35,6 @@ urlpatterns = [
 
     url(r'^api/1.0/project_jobs', view=ProjectJobListCreateView.as_view()),
     url(r'^api/1.0/project_jobs/(?P<id>[\w-]+)/$', view=ProjectJobRetrieveAPIView.as_view()),
+
+    url(r'^api/1.0/test_celery', view=app_server_views.fact),
 ]
