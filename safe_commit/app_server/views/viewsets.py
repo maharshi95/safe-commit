@@ -11,6 +11,7 @@ from app_server.filters import ProjectJobFilter
 from app_server.models import Project, ProjectJob
 from app_server.serializers import ProjectJobSerializer, ProjectElaborateSerializer
 from app_server.views.utils import wrapped_json_response
+from app_worker.tasks import run_project_job
 
 
 class ProjectListCreateAPIView(ListCreateAPIView):
@@ -50,6 +51,7 @@ class ProjectJobListCreateView(ListCreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
+        run_project_job.delay(serializer.data['id'])
         headers = self.get_success_headers(serializer.data)
         return Response(data=serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 

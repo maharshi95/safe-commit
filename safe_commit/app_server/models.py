@@ -59,6 +59,10 @@ class ProjectJob(BaseModel):
     def repo_path(self):
         return osp.join(self.local_dir_path, constants.JOB_REPO_DIR_NAME)
 
+    @property
+    def git_url(self):
+        return self.project.git_url
+
 
 
 class CommitJob(BaseModel):

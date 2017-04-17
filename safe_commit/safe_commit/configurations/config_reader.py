@@ -23,6 +23,9 @@ class ConfigReader:
 
     def db_config(self, key):
         return self.get('DATABASE', key)
+
+    def git_config(self, key):
+        return self.get('GIT', key)
     
     @property
     def base_dir_path(self):
