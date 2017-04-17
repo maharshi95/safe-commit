@@ -13,12 +13,28 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
+from rest_framework import routers
+from rest_framework_swagger.views import get_swagger_view
 
-from app_server import views as app_server_views
+from app_server.views import app_views as app_server_views
+from app_server.views.viewsets import ProjectListCreateAPIView, RetrieveProjectAPIView, ProjectJobListCreateView, ProjectJobRetrieveAPIView
+
+router = routers.DefaultRouter()
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^api/1.0/docs/', get_swagger_view(title='Safe Commit API')),
+
+    url(r'^api/1.0/', include(router.urls)),
     url(r'^api/1.0/health', view=app_server_views.health_api),
+
+    url(r'^api/1.0/projects', view=ProjectListCreateAPIView.as_view()),
+    url(r'^api/1.0/projects/(?P<id>[\w-]+)/$', view=RetrieveProjectAPIView.as_view()),
+
+    url(r'^api/1.0/project_jobs', view=ProjectJobListCreateView.as_view()),
+    url(r'^api/1.0/project_jobs/(?P<id>[\w-]+)/$', view=ProjectJobRetrieveAPIView.as_view()),
+
+    url(r'^api/1.0/test_celery', view=app_server_views.fact),
 ]

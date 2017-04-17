@@ -11,8 +11,9 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import os.path as osp
 
-from safe_commit.configurations.configs import ConfigReader
+from safe_commit.configurations.config_reader import ConfigReader
 
 configs = ConfigReader()
 
@@ -39,7 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_swagger',
     'app_server',
+    'app_worker',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +55,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 100
+}
 
 ROOT_URLCONF = 'safe_commit.urls'
 
@@ -83,7 +92,7 @@ DATABASES = {
         'USER': configs.db_config('USERNAME'),
         'PASSWORD': configs.db_config('PASSWORD'),
         'HOST': configs.db_config('HOST'),
-        'PORT': '3306',
+        'PORT': configs.db_config('PORT'),
 
         # emoji compatibility in strings for mysql
         'OPTIONS': {
