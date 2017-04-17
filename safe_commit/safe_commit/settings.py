@@ -11,8 +11,9 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import os.path as osp
 
-from safe_commit.configurations.configs import ConfigReader
+from safe_commit.configurations.config_reader import ConfigReader
 
 configs = ConfigReader()
 
@@ -39,9 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app_server',
     'rest_framework',
     'rest_framework_swagger',
+    'app_server',
+    'app_worker',
 ]
 
 MIDDLEWARE = [
